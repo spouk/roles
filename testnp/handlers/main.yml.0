@@ -1,0 +1,14 @@
+---
+# handlers file for nodeexporter
+    - name: systemd reload
+      become: yes
+      ansible.builtin.command: systemctl daemon-reload
+
+    - name: start node_exporter service
+      become: yes
+      ansible.builtin.service: 
+        daemon_reload: true 
+        enabled: true 
+        name: node_exporter 
+        state: restarted
+        
