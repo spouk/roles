@@ -1,0 +1,39 @@
+---
+# tasks file for nodeexporter
+  - name: create new fake user for run node_exporter 
+    ansible.builtin.user:
+     name: nodeuser
+     comment: fake user for running node_exporter 
+     shell: /bin/false
+    register: res_add_user
+    
+  - ansible.builtin.debug:
+     msg: "{{ res_add_user }}"
+     
+  - name: copy node-exporter to remote server
+    copy: 
+      src: "{{ nodefile }}"
+      dest: "{{ dstcopy }}"
+      owner: nodeuser
+      group: nodeuser
+    register: res_node_copy
+  - ansible.builtin.debug:
+     msg: " {{ res_node_copy.failed }}" 
+  - name: unpack arc node_exporter
+    ansible.builtin.command:
+      cmd: tar -xzvf "{{ dstcopy }}{{ nodefile }}" -C "{{ dstcopy }}"
+    when: res_node_copy['failed'] == False 
+    register: res_extract
+  - ansible.builtin.debug:
+     msg: "{{ res_extract }}"
+  - name: copy node_exporter to /usr/local/bin
+    ansible.builtin.command: cp "{{ dstcopy }}/{{ filename }}" /usr/local/bin
+    become: yes
+  - name: copy node exporter service 
+    become: yes
+    ansible.builtin.copy:
+     src: "{{ nodeservice }}"
+     dest: /etc/systemd/system
+    notify: 
+       - start node_exporter service
+      

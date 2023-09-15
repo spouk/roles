@@ -1,0 +1,8 @@
+---
+# vars file for nodeexporter
+   nodefile: np.tar.gz
+   dstcopy: /tmp/
+   filename: node_exporter
+   user: spouk
+   nodeservice: node_exporter.service
+   

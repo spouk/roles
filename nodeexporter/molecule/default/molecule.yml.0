@@ -1,0 +1,15 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: docker.io/centos:systemd
+    pre_build_image: true
+    privileged: True
+    
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
