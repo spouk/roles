@@ -1,9 +1,0 @@
-galaxy_info:
-  role_name: testnp
-  namespace: spouk
-  author: aleksey.martynenko
-  description: fu
-  company: worldnet
-  license: MIT
-  min_ansible_version: 2.1
-
