@@ -1,8 +1,6 @@
 ---
-# tasks file for simplerole
 - name: install some soft in centos
-  yum: 
-    - htop 
-    - zstd
+  ansible.builtin.yum: 
+    name: mc
     
   
